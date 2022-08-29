@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="output.css">
+    <script src="flowbite.js"></script>
+    <script src="index.js" defer></script>
+    <title>Cosmos</title>
+</head>
+<body class="bg-zinc-800">
+    <template id="t-sidebar-item">
+        <li class="group">
+            <a href="#" class="flex items-center p-2 text-base font-normal text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="15 3 20 40" fill="currentColor" class="flex-shrink-0 w-6 h-6 text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"><path d="M7 40q-1.15 0-2.075-.925Q4 38.15 4 37V11q0-1.15.925-2.075Q5.85 8 7 8h14.05l3 3H41q1.15 0 2.075.925Q44 12.85 44 14H22.75l-3-3H7v26l5.1-20H47l-5.35 20.7q-.3 1.2-1.1 1.75T38.5 40Zm3.15-3h28.6l4.2-17h-28.6Zm0 0 4.2-17-4.2 17ZM7 14v-3 3Z"/></svg>
+               <span id="folder-name" class="flex-1 ml-3 whitespace-nowrap">Folder</span>
+               <span class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-rose-200 rounded-full dark:bg-rose-600 hover:dark:bg-rose-500 invisible group-hover:visible dark:text-gray-300"> Delete </span>
+               <span class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-rose-200 rounded-full dark:bg-emerald-600 hover:dark:bg-emerald-500 invisible group-hover:visible dark:text-gray-300">+</span>
+            </a>
+         </li>
+    </template>
+    
+<!-- drawer init and toggle -->
+<div class="text-center">
+    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button" data-drawer-target="drawer-folders" data-drawer-show="drawer-folders" data-drawer-backdrop="true" aria-controls="drawer-folders">
+    Show drawer
+    </button>
+ </div>
+ 
+ <!-- drawer component -->
+ <div id="drawer-folders" class="fixed z-40 h-screen p-4 overflow-y-auto bg-white w-80 dark:bg-zinc-800 transition-transform left-0 top-0 transform-none" tabindex="-1" aria-labelledby="drawer-label" aria-modal="true" role="dialog">
+    <h5 id="drawer-label" class="inline-flex items-center mb-4 text-base font-semibold text-zinc-500 dark:text-zinc-400"><svg class="w-5 h-5 mr-2" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>Folders</h5>
+    
+    <button type="button" data-drawer-dismiss="drawer-folders" aria-controls="drawer-folders" class="text-zinc-400 bg-transparent hover:bg-zinc-200 hover:text-zinc-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-zinc-600 dark:hover:text-white">
+       <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+       <span class="sr-only">Close menu</span>
+    </button>
+
+    <ul id="folder-list">
+        <button class="bg-violet-600 rounded-md text-zinc-100 text-sm py-1 font-semibold w-full mb-2 hover:bg-violet-500 duration-200">New Folder</button>
+    </ul>
+    
+ </div>
+</body>
+</html>
