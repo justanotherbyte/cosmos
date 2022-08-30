@@ -6,40 +6,130 @@
     <link rel="stylesheet" href="output.css">
     <script src="flowbite.js"></script>
     <script src="index.js" defer></script>
+    <script src="sidebar.js" defer></script>
+    <script src="tbcontrols.js" defer></script>
     <title>Cosmos</title>
 </head>
-<body class="bg-zinc-800">
-    <template id="t-sidebar-item">
-        <li class="group">
-            <a href="#" class="flex items-center p-2 text-base font-normal text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700">
-            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="15 3 20 40" fill="currentColor" class="flex-shrink-0 w-6 h-6 text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"><path d="M7 40q-1.15 0-2.075-.925Q4 38.15 4 37V11q0-1.15.925-2.075Q5.85 8 7 8h14.05l3 3H41q1.15 0 2.075.925Q44 12.85 44 14H22.75l-3-3H7v26l5.1-20H47l-5.35 20.7q-.3 1.2-1.1 1.75T38.5 40Zm3.15-3h28.6l4.2-17h-28.6Zm0 0 4.2-17-4.2 17ZM7 14v-3 3Z"/></svg>
-               <span id="folder-name" class="flex-1 ml-3 whitespace-nowrap">Folder</span>
-               <span class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-rose-200 rounded-full dark:bg-rose-600 hover:dark:bg-rose-500 invisible group-hover:visible dark:text-gray-300"> Delete </span>
-               <span class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-rose-200 rounded-full dark:bg-emerald-600 hover:dark:bg-emerald-500 invisible group-hover:visible dark:text-gray-300">+</span>
-            </a>
-         </li>
-    </template>
-    
-<!-- drawer init and toggle -->
-<div class="text-center">
-    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button" data-drawer-target="drawer-folders" data-drawer-show="drawer-folders" data-drawer-backdrop="true" aria-controls="drawer-folders">
-    Show drawer
-    </button>
- </div>
- 
- <!-- drawer component -->
- <div id="drawer-folders" class="fixed z-40 h-screen p-4 overflow-y-auto bg-white w-80 dark:bg-zinc-800 transition-transform left-0 top-0 transform-none" tabindex="-1" aria-labelledby="drawer-label" aria-modal="true" role="dialog">
-    <h5 id="drawer-label" class="inline-flex items-center mb-4 text-base font-semibold text-zinc-500 dark:text-zinc-400"><svg class="w-5 h-5 mr-2" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>Folders</h5>
-    
-    <button type="button" data-drawer-dismiss="drawer-folders" aria-controls="drawer-folders" class="text-zinc-400 bg-transparent hover:bg-zinc-200 hover:text-zinc-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-zinc-600 dark:hover:text-white">
-       <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-       <span class="sr-only">Close menu</span>
-    </button>
-
-    <ul id="folder-list">
+<body class="bg-zinc-900">
+<!-- <aside class="w-72 h-auto" aria-label="Sidebar">
+    <div class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-zinc-800 h-screen">
+        <div class="flex items-center pl-2.5 mb-5">
+            
+            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">My Folders</span>
+            
+        </div>
         <button class="bg-violet-600 rounded-md text-zinc-100 text-sm py-1 font-semibold w-full mb-2 hover:bg-violet-500 duration-200">New Folder</button>
-    </ul>
+       <ul id="folder-list" class="space-y-2">
+          
+       </ul>
+    </div>
+ </aside> -->
+ 
+ <div class="flex flex-no-wrap">
     
+    <!-- Sidebar starts -->
+    <!-- Remove class [ hidden ] and replace [ sm:flex ] with [ flex ] -->
+    <div style="min-height: 716px" class="w-80 absolute sm:relative bg-zinc-800 shadow h-screen flex-col justify-between hidden sm:flex">
+        <div class="px-4">
+            <div data-tauri-drag-region class="flex space-x-1">
+                <span id="titlebar-close" class="dot mt-3 w-3 h-3 bg-red-500 hover:bg-red-600"></span>
+                <span id="titlebar-minimize" class="dot mt-3 w-3 h-3 bg-yellow-500 hover:bg-yellow-600"></span>
+                <span id="titlebar-maximize" class="dot mt-3 w-3 h-3 bg-green-500 hover:bg-green-600"></span>
+            </div>
+            <div class="h-16 w-full flex items-center">
+                
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">My Folders</span>
+                
+            </div>
+            <button class="bg-violet-600 rounded-md text-zinc-100 text-sm py-1 font-semibold w-full mb-2 hover:bg-violet-500 duration-200">New Folder</button>
+            <ul id="folders-list" class="mt-3">
+                <li class="group last:border-none border-b border-zinc-600 border-dashed">
+                    <a href="#" class="flex items-center p-2 text-base font-normal text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="15 3 20 40" fill="currentColor" class="flex-shrink-0 w-6 h-6 text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"><path d="M7 40q-1.15 0-2.075-.925Q4 38.15 4 37V11q0-1.15.925-2.075Q5.85 8 7 8h14.05l3 3H41q1.15 0 2.075.925Q44 12.85 44 14H22.75l-3-3H7v26l5.1-20H47l-5.35 20.7q-.3 1.2-1.1 1.75T38.5 40Zm3.15-3h28.6l4.2-17h-28.6Zm0 0 4.2-17-4.2 17ZM7 14v-3 3Z"/></svg>
+                        <span id="folder-name" class="flex-1 ml-3 whitespace-nowrap">Folder</span>
+                        <span class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-rose-200 rounded-full dark:bg-rose-600 hover:dark:bg-rose-500 invisible group-hover:visible dark:text-gray-300"> Delete </span>
+                        <span class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-rose-200 rounded-full dark:bg-emerald-600 hover:dark:bg-emerald-500 invisible group-hover:visible dark:text-gray-300">+</span>
+                    </a>
+                </li>
+                
+            </ul>
+            
+        </div>
+    
+    </div>
+    <div class="w-64 z-40 h-screen absolute bg-zinc-800 shadow flex-col justify-between sm:hidden transition duration-150 ease-in-out" id="mobile-nav">
+        <button aria-label="toggle sidebar" id="openSideBar" class="h-10 w-10 bg-zinc-800 absolute right-0 mt-16 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 rounded focus:ring-gray-800" onclick="sidebarHandler(true)">
+           <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/light_with_icons_at_bottom-svg7.svg" alt="toggler">
+        </button>
+        <button aria-label="Close sidebar" id="closeSideBar" class="hidden h-10 w-10 bg-gray-800 absolute right-0 mt-16 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer text-white" onclick="sidebarHandler(false)">
+          <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/light_with_icons_at_bottom-svg8.svg" alt="cross">
+        </button>
+        <div data-tauri-drag-region class="flex ml-3 space-x-1">
+            <span id="titlebar-close" class="dot mt-3 w-3 h-3 bg-red-500 hover:bg-red-600"></span>
+            <span id="titlebar-minimize" class="dot mt-3 w-3 h-3 bg-yellow-500 hover:bg-yellow-600"></span>
+            <span id="titlebar-maximize" class="dot mt-3 w-3 h-3 bg-green-500 hover:bg-green-600"></span>
+        </div>
+        <div class="px-4">
+            <div class="h-16 w-full flex items-center">
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">My Folders</span>
+            </div>
+            <button class="bg-violet-600 rounded-md text-zinc-100 text-sm py-1 font-semibold w-full mb-2 hover:bg-violet-500 duration-200">New Folder</button>
+            <ul id="folders-list-mobile" class="mt-3">
+                <li class="group last:border-none border-b border-zinc-600 border-dashed">
+                    <a href="#" class="flex items-center p-2 text-base font-normal text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="15 3 20 40" fill="currentColor" class="flex-shrink-0 w-6 h-6 text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"><path d="M7 40q-1.15 0-2.075-.925Q4 38.15 4 37V11q0-1.15.925-2.075Q5.85 8 7 8h14.05l3 3H41q1.15 0 2.075.925Q44 12.85 44 14H22.75l-3-3H7v26l5.1-20H47l-5.35 20.7q-.3 1.2-1.1 1.75T38.5 40Zm3.15-3h28.6l4.2-17h-28.6Zm0 0 4.2-17-4.2 17ZM7 14v-3 3Z"/></svg>
+                        <span id="folder-name" class="flex-1 ml-3 whitespace-nowrap">Folder</span>
+                        <span class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-rose-200 rounded-full dark:bg-rose-600 hover:dark:bg-rose-500 invisible group-hover:visible dark:text-gray-300"> Delete </span>
+                        <span class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-rose-200 rounded-full dark:bg-emerald-600 hover:dark:bg-emerald-500 invisible group-hover:visible dark:text-gray-300">+</span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+    <!-- Sidebar ends -->
+    <!-- Remove class [ h-64 ] when adding a card block -->
+    <div class="container mx-auto py-10 h-full md:w-4/5 w-11/12 px-6">
+        <!-- Remove class [ border-dashed border-2 border-gray-300 ] to remove dotted border -->
+        <div class="w-full h-full rounded p-3">
+            <h5 class="text-zinc-300 font-semibold text-xl mb-3">Folder Name</h5>
+            <div class="grid grid-cols-3">
+                <div
+                    class="grid place-items-center max-w-sm hover:bg-zinc-800 duration-300 rounded-lg border border-zinc-200 shadow-md border-dashed dark:border-violet-500">
+    
+                    <p class="text-center text-violet-400 items-center">New Note</p>
+                </div>
+
+                <div
+                    class="max-w-sm bg-white rounded-lg border border-zinc-200 shadow-md dark:bg-zinc-800 dark:border-zinc-700">
+                    <a href="#">
+                        <img class="rounded-t-lg" src="assets/demo.png" alt="">
+                    </a>
+                    <div class="p-3">
+                        <a href="#">
+                            <h5 class="text-base font-semibold tracking-tight text-zinc-900 dark:text-zinc-400">An epic picture</h5>
+                        </a>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    </div>
+
+<template id="t-sidebar-item">
+    <li class="group last:border-none border-b border-zinc-600 border-dashed">
+        <a href="#" class="flex items-center p-2 text-base font-normal text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700">
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="15 3 20 40" fill="currentColor" class="flex-shrink-0 w-6 h-6 text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"><path d="M7 40q-1.15 0-2.075-.925Q4 38.15 4 37V11q0-1.15.925-2.075Q5.85 8 7 8h14.05l3 3H41q1.15 0 2.075.925Q44 12.85 44 14H22.75l-3-3H7v26l5.1-20H47l-5.35 20.7q-.3 1.2-1.1 1.75T38.5 40Zm3.15-3h28.6l4.2-17h-28.6Zm0 0 4.2-17-4.2 17ZM7 14v-3 3Z"/></svg>
+            <span id="folder-name" class="flex-1 ml-3 whitespace-nowrap">Folder</span>
+            <span class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-rose-200 rounded-full dark:bg-rose-600 hover:dark:bg-rose-500 invisible group-hover:visible dark:text-gray-300"> Delete </span>
+            <span class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-rose-200 rounded-full dark:bg-emerald-600 hover:dark:bg-emerald-500 invisible group-hover:visible dark:text-gray-300">+</span>
+        </a>
+    </li>
+</template>
+    
+
+
  </div>
 </body>
 </html>

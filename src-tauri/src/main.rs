@@ -16,9 +16,21 @@ fn main() {
         .setup(|app| {
             let splashscreen_window = app.get_window("splashscreen").unwrap();
             let main_window = app.get_window("main").unwrap();
+            let app_dir = app.path_resolver().app_dir().unwrap();
             
+            if !app_dir.exists() {
+                std::fs::create_dir(&app_dir).unwrap()
+            }
+
+            let app_dir = std::fs::read_dir(app_dir).unwrap();
+
             tauri::async_runtime::spawn(async move {
                 // initialize your app here instead of sleeping :)
+                
+                for path in app_dir {
+                    println!("{}", path.unwrap().path().display())
+                }
+
                 println!("Initializing...");
                 std::thread::sleep(std::time::Duration::from_secs(2));
                 println!("Done initializing.");

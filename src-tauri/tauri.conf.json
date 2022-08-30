@@ -29,7 +29,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.cosmos.app",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -55,12 +55,13 @@
     },
     "windows": [
       {
-        "fullscreen": true,
+        "fullscreen": false,
         "height": 600,
         "resizable": true,
         "title": "Cosmos",
         "width": 800,
-        "visible": false
+        "visible": false,
+        "decorations": false
       },
       {
         "label": "splashscreen",
