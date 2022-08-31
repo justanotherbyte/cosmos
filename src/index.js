@@ -14,8 +14,10 @@ const folderName = document.getElementById("folder-name-heading");
 
 const tauri = window.__TAURI__;
 const invoke = window.__TAURI__.invoke;
+var CURRENT_FOLDER_VIEW = null;
 
 document.addEventListener("DOMContentLoaded", () => {
+    clearFolderList();
     invoke("get_note_folders").then(folders => {
         if (folders.length === 0) {
             // just for the giggles
@@ -32,17 +34,32 @@ document.addEventListener("DOMContentLoaded", () => {
                 let fName = folder[0];
 
                 let clone = folderComponent.content.cloneNode(true);
+                let mobileClone = clone.cloneNode(true);
+
                 clone.getElementById("folder-name").innerHTML = fName;
-                foldersList.appendChild(clone.cloneNode(true));
+                mobileClone.getElementById("folder-name").innerHTML = fName;
+                
+                function dfInternal() {
+                    console.log("calling");
+                    deleteFolder(fName)
+                }
+                
+                clone.getElementById("delete-btn").onclick = dfInternal
+                mobileClone.getElementById("delete-btn").onclick = dfInternal
+                foldersList.appendChild(mobileClone);
                 foldersListMobile.appendChild(clone);
             }
         }
 
         // load first folder's notes
         folderName.innerHTML = folders[0][0];
-        
     })
 })
+
+function dispatchFakeEvent(evName, item) {
+    let ev = new Event(evName);
+    item.dispatchEvent(ev);
+}
 
 /** @param {String} [name] */
 function createNewFolder(name) {
@@ -53,17 +70,22 @@ function createNewFolder(name) {
 
 /** @param {String} [name] */
 function deleteFolder(name) {
-    
+    console.log("deleting folder");
+    invoke("delete_note_folder", {"name": name}).then(_ => {
+        dispatchFakeEvent("DOMContentLoaded", document);
+    })
 }
 
-folderCreateButton.addEventListener("click", () => {
-    createNewFolder(folderCreateInput.value);
-    let ev = new Event("DOMContentLoaded");
+function clearFolderList() {
     while (foldersList.firstChild) {
         foldersList.removeChild(foldersList.firstChild);
     }
     while (foldersListMobile.firstChild) {
         foldersListMobile.removeChild(foldersListMobile.firstChild);
     }
-    document.dispatchEvent(ev);
+}
+
+folderCreateButton.addEventListener("click", () => {
+    createNewFolder(folderCreateInput.value);
+    dispatchFakeEvent("DOMContentLoaded", document);
 });

@@ -12,7 +12,8 @@ fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             notes::get_note_folders,
-            notes::create_note_folder
+            notes::create_note_folder,
+            notes::delete_note_folder
         ])
         .setup(|app| {
             let splashscreen_window = app.get_window("splashscreen").unwrap();

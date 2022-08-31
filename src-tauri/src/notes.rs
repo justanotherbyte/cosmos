@@ -5,8 +5,6 @@ pub async fn get_note_folders(app_handle: tauri::AppHandle) -> Vec<(String, Stri
     let mut notes_folder = app_handle.path_resolver().app_dir().unwrap();
     notes_folder.push("Notes");
 
-    println!("{}", notes_folder.display());
-
     let mut folders = vec![];
 
     let dir_iter = notes_folder.read_dir().unwrap();
@@ -49,5 +47,15 @@ pub async fn create_note_folder(app_handle: tauri::AppHandle, name: String) -> F
             path
         }
     }
+}
 
+#[tauri::command]
+pub async fn delete_note_folder(app_handle: tauri::AppHandle, name: String) {
+    let mut notes_folder = app_handle.path_resolver().app_dir().unwrap();
+    notes_folder.push("Notes");
+    notes_folder.push(name);
+
+    if notes_folder.exists() {
+        std::fs::remove_dir(notes_folder).unwrap();
+    }
 }
